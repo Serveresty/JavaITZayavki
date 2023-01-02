@@ -35,7 +35,7 @@ body {
 /* Start form  attributes */
 form {
     width: 450px;
-    min-height: 750px;
+    min-height: 500px;
     height: auto;
     border-radius: 5px;
     margin: 2% auto;
@@ -198,5 +198,6 @@ a {
 }
 
 .other {
+    margin: 20px;
     height: 100px;
 }
