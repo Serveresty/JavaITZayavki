@@ -1,0 +1,107 @@
+body {
+    background-image: linear-gradient(-225deg, #E3FDF5 0%, #FFE6FA 100%);
+    background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+
+    font-family: 'Vibur', cursive;
+/*   the main font */
+    font-family: 'Abel', sans-serif;
+    opacity: .95;
+}
+
+h1 {
+    text-align: center;
+    color: white;
+    -webkit-text-stroke: 2px pink;
+}
+
+.header {
+    margin: 2% auto;
+    width: auto;
+    border-radius: 5px;
+    box-shadow: 0 9px 50px hsla(20, 67%, 75%, 0.31);
+    padding: 2%;
+    background-image: linear-gradient(-225deg, #E3FDF5 50%, #FFE6FA 50%);
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    -webkit-text-stroke: 1px purple;
+}
+
+.main {
+        width: auto;
+        height: auto;
+        border-radius: 5px;
+        margin: 2% auto;
+        box-shadow: 0 9px 50px hsla(20, 67%, 75%, 0.31);
+        padding: 2%;
+        background-image: linear-gradient(-225deg, #E3FDF5 50%, #FFE6FA 50%);
+}
+
+.users {
+    border: 3px solid white;
+    border-collapse: collapse;
+    margin: auto;
+}
+
+.users TD, TH {
+    padding: 5px; /* Поля вокруг текста */
+    border: 3px solid white; /* Рамка вокруг ячеек */
+}
+
+ul {
+list-style-type: none;
+}
+
+.header ul {
+    padding: 0px;
+    margin: 0px;
+    text-align: center;
+    display:inline-block;
+    vertical-align:top;
+    float: right;
+}
+
+ul.hr {
+    margin: 0; /* Обнуляем значение отступов */
+    margin-top: 10px;
+    padding: 4px; /* Значение полей */
+   }
+ul.hr li {
+    display: inline; /* Отображать как строчный элемент */
+    margin-right: 5px; /* Отступ слева */
+    padding: 3px; /* Поля вокруг текста */
+}
+
+.del {
+  width: 100px;
+  height: 25px;
+  text-decoration: none;
+  padding-top: 2px;
+  color: #a675b3;
+  text-align: center;
+  line-height: 20px;
+  display: block;
+  margin: 20px auto;
+  font: normal 13px arial;
+  border-radius: 5px;
+}
+
+.del:not(.active) {
+  box-shadow: inset 0 1px 1px rgba(111, 55, 125, 0.8), inset 0 -1px 0px rgba(63, 59, 113, 0.2), 0 9px 16px 0 rgba(0, 0, 0, 0.3), 0 4px 3px 0 rgba(0, 0, 0, 0.3), 0 0 0 1px #150a1e;
+  background-image: linear-gradient(#3b2751, #271739);
+  text-shadow: 0 0 21px rgba(223, 206, 228, 0.5), 0 -1px 0 #311d47;
+}
+
+.del:not(.active):hover,
+.del:not(.active):focus {
+  transition: color 200ms linear, text-shadow 500ms linear;
+  color: #fff;
+  text-shadow: 0 0 21px rgba(223, 206, 228, 0.5), 0 0 10px rgba(223, 206, 228, 0.4), 0 0 2px #2a153c;
+}
+.del:not(:hover) {
+    transition: 0.6s;
+}

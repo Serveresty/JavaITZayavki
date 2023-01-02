@@ -3,12 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin</title>
+    <link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
-<table class="alert alert-info mt-2">
+<div class="header">
+    <div id="navigation-container">
+        <a href="/"><img src="/pictures/net.png" width="40" height="40" style="margin-top:2px;"></a>
+        <ul class="hr">
+            <li><a href="/">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </div>
+</div>
+<div class="main">
+
+    <h1>ADMIN Panel</h1>
+
+<table class="alert alert-info mt-2 users">
     <thead>
     <th>ID</th>
-    <th>UserName</th>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Email</th>
+    <th>Username</th>
     <th>Password</th>
     <th>Roles</th>
     </thead>
@@ -27,11 +45,12 @@
                 <form action="/admin" method="post">
                     <input type="hidden" name="userId" th:value="${el.id}"/>
                     <input type="hidden" name="action" th:value="delete"/>
-                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <button type="submit" class="btn btn-danger del">Delete</button>
                 </form>
             </td>
         </tr>
     </div>
 </table>
+</div>
 </body>
 </html>
