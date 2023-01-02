@@ -8,10 +8,11 @@
 <body>
 <div class="header">
     <div id="navigation-container">
-        <a href="/"><img src="/pictures/net.png" width="40" height="40" style="margin-top:2px;"></a>
+        <a href="/"><img class="logo" src="/pictures/logo.svg" /></a>
         <ul class="hr">
             <li><a href="/">Home</a></li>
-            <li><a href="#">About</a></li>
+            <li><a href="/requests">Requests</a></li>
+            <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/admin">AdminPanel</a></li>
             <li><a href="/logout">Logout</a></li>
         </ul>
     </div>
@@ -29,8 +30,9 @@
     <th>Username</th>
     <th>Password</th>
     <th>Roles</th>
+    <th>Delete User</th>
     </thead>
-    <div th:each ="el : ${allUsers}" >
+    <div th:each ="el : ${allUsers}">
         <tr>
             <td th:text="${el.id}"></td>
             <td th:text="${el.first_name}"></td>

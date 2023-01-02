@@ -19,4 +19,9 @@ public class MainController {
         return "homePage";
     }
 
+    @GetMapping("/requests")
+    public String req( Model model) {
+        return "requests";
+    }
+
 }
