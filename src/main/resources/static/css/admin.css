@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Abel|Abril+Fatface|Alegreya|Arima+Madurai|Dancing+Script|Dosis|Merriweather|Oleo+Script|Overlock|PT+Serif|Pacifico|Playball|Playfair+Display|Share|Unica+One|Vibur');
 body {
     background-image: linear-gradient(-225deg, #E3FDF5 0%, #FFE6FA 100%);
     background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);
@@ -112,4 +113,53 @@ ul.hr li {
     margin-top: 0.4%;
     margin-left: 1%;
     display:inline-block;
+}
+
+#blablabla {
+  display: none;
+  animation-duration: 1.5s;
+  animation-fill-mode: both;
+  animation-name: fadeIn;
+}
+
+#blablabla.open {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.adminregister {
+    width: 100%;
+    text-align: center;
+}
+
+label {
+    text-decoration: none;
+    color: white;
+    -webkit-text-stroke: 1px purple;
+}
+
+input {
+    border-radius: 5px;
+    border: 2px solid #a8ffd2;
+    height: 35px;
+    width: 300px;
+    font-family: 'Abel', sans-serif;
+    outline:none;
+}
+
+form {
+    display: inline-block;
+}
+
+input:focus {
+    transform: translateX(-5px);
+    border-radius: 5px;
 }
