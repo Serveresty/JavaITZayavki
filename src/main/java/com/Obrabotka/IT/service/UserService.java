@@ -48,6 +48,10 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll();
     }
 
+    public User get(Long id) {
+        return userRepository.findById(id).get();
+    }
+
     public boolean saveUser(User user) {
         User userFromDB = userRepository.findByUsername(user.getUsername());
 
@@ -57,6 +61,11 @@ public class UserService implements UserDetailsService {
 
         user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+        return true;
+    }
+
+    public boolean saveWith(User user) {
         userRepository.save(user);
         return true;
     }

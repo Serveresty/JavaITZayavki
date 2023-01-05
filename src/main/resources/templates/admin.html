@@ -82,6 +82,13 @@
                     <button type="submit" class="btn btn-danger del">Delete</button>
                 </form>
             </td>
+            <td>
+                <form action="/admin" method="post">
+                    <input type="hidden" name="userId" th:value="${el.id}"/>
+                    <input type="hidden" name="action" th:value="give_operator"/>
+                    <button type="submit" class="btn btn-danger del">Give Operator</button>
+                </form>
+            </td>
         </tr>
     </div>
 </table>

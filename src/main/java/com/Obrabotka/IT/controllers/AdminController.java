@@ -1,5 +1,6 @@
 package com.Obrabotka.IT.controllers;
 
+import com.Obrabotka.IT.models.Role;
 import com.Obrabotka.IT.models.User;
 import com.Obrabotka.IT.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 @Controller
 public class AdminController {
@@ -32,8 +36,10 @@ public class AdminController {
         if (action.equals("delete")){
             userService.deleteUser(userId);
         }
-        if (action.equals("add_new_user")) {
-
+        if (action.equals("give_operator")) {
+            User userr = userService.get(userId);
+            userr.getRoles().add(new Role(2L, "ROLE_OPERATOR"));
+            userService.saveWith(userr);
         }
         model.addAttribute("user",user);
         return "redirect:/admin";
