@@ -8,6 +8,7 @@ import java.util.Set;
 @Entity
 @Table(name = "t_role")
 public class Role implements GrantedAuthority {
+    private static final long serialVersionUID = 615786319041370972L;
     @Id
     private Long id;
     private String name;

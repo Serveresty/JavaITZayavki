@@ -45,7 +45,10 @@ public class AdminController {
             userService.saveWith(userr);
         }
         if (action.equals("delete_operator")) {
-
+            User userr = userService.get(userId);
+            userr.getRoles().clear();
+            userr.getRoles().add(new Role(1L, "ROLE_USER"));
+            userService.saveWith(userr);
         }
         model.addAttribute("user",user);
         return "redirect:/admin";

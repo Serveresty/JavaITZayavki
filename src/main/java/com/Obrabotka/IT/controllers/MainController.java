@@ -19,9 +19,14 @@ public class MainController {
         return "homePage";
     }
 
-    @GetMapping("/requests")
-    public String req( Model model) {
-        return "requests";
+    @GetMapping("/send_request")
+    public String reqSend( Model model) {
+        return "send_request";
+    }
+
+    @GetMapping("/claim_request")
+    public String reqClaim( Model model) {
+        return "claim_request";
     }
 
 }

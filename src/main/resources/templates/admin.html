@@ -11,7 +11,8 @@
         <a href="/"><img class="logo" src="/pictures/logo.svg" /></a>
         <ul class="hr">
             <li><a href="/">Home</a></li>
-            <li><a href="/requests">Requests</a></li>
+            <li sec:authorize="hasRole('ROLE_OPERATOR')"><a href="/claim_request">Claim Request</a></li>
+            <li sec:authorize="hasRole('ROLE_USER')"><a href="/send_request">Send Request</a></li>
             <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/admin">AdminPanel</a></li>
             <li><a href="/logout">Logout</a></li>
         </ul>
