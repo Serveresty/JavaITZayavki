@@ -63,6 +63,7 @@
     <th>Password</th>
     <th>Roles</th>
     <th>Delete User</th>
+    <th colspan="2">Operator actions</th>
     </thead>
     <div th:each ="el : ${allUsers}">
         <tr>
@@ -87,6 +88,13 @@
                     <input type="hidden" name="userId" th:value="${el.id}"/>
                     <input type="hidden" name="action" th:value="give_operator"/>
                     <button type="submit" class="btn btn-danger del">Give Operator</button>
+                </form>
+            </td>
+            <td>
+                <form action="/admin" method="post">
+                    <input type="hidden" name="userId" th:value="${el.id}"/>
+                    <input type="hidden" name="action" th:value="delete_operator"/>
+                    <button type="submit" class="btn btn-danger del">Del Operator</button>
                 </form>
             </td>
         </tr>

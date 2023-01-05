@@ -2,6 +2,7 @@ package com.Obrabotka.IT.controllers;
 
 import com.Obrabotka.IT.models.Role;
 import com.Obrabotka.IT.models.User;
+import com.Obrabotka.IT.repository.RoleRepository;
 import com.Obrabotka.IT.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -19,6 +20,8 @@ import java.util.Set;
 public class AdminController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private RoleRepository roleRepository;
 
     @GetMapping("/admin")
     public String userList(@AuthenticationPrincipal User user,
@@ -40,6 +43,9 @@ public class AdminController {
             User userr = userService.get(userId);
             userr.getRoles().add(new Role(2L, "ROLE_OPERATOR"));
             userService.saveWith(userr);
+        }
+        if (action.equals("delete_operator")) {
+
         }
         model.addAttribute("user",user);
         return "redirect:/admin";
