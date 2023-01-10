@@ -2,43 +2,43 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="UTF-8">
-    <title>Sign In</title>
-    <link rel="stylesheet" href="/css/login.css">
+  <meta charset="UTF-8">
+  <title>Sign In</title>
+  <link rel="stylesheet" href="/css/login.css">
 </head>
 <body>
 <div class="overlay">
-    <form method="POST" action="/login">
-        <div class="con">
-            <header class="head-form">
-                <h2>Sign In</h2>
-                <p>sign in here using your username and password</p>
-            </header>
-            <br>
-            <div class="field-set">
+  <form method="POST" action="/login">
+    <div class="con">
+      <header class="head-form">
+        <h2>Sign In</h2>
+        <p>sign in here using your username and password</p>
+      </header>
+      <br>
+      <div class="field-set">
                 <span class="input-item">
                     <i class="fa fa-user-circle"></i>
                 </span>
-                <input class="form-input" id="txt-input" type="text" name="username" placeholder="Username" required>
-                <br>
-                <span class="input-item">
+        <input class="form-input" id="txt-input" type="text" name="username" placeholder="Username" required>
+        <br>
+        <span class="input-item">
                     <i class="fa fa-key"></i>
                 </span>
-                <input class="form-input" type="password" placeholder="Password" id="pwd"  name="password" required>
-                <span>
+        <input class="form-input" type="password" placeholder="Password" id="pwd"  name="password" required>
+        <span>
                     <i class="fa fa-eye" aria-hidden="true"  type="button" id="eye"><img src="/pictures/eye.svg" width="25" height="25"></i>
                 </span>
-                <br>
-                <button class="log-in" type="submit">Log In</button>
-            </div>
+        <br>
+        <button class="log-in" type="submit">Log In</button>
+      </div>
 
-            <div class="other">
-                <p align="center">or</p>
-                <p> </p>
-                <a href="/registration"><button class="btn submits sign-up" type="button">Sign Up</button></a>
-            </div>
-        </div>
-    </form>
+      <div class="other">
+        <p align="center">or</p>
+        <p> </p>
+        <a href="/registration"><button class="btn submits sign-up" type="button">Sign Up</button></a>
+      </div>
+    </div>
+  </form>
 </div>
 <script src="/js/login.js"></script>
 </body>
