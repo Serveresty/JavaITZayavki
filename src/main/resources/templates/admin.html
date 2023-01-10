@@ -6,18 +6,7 @@
     <link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
-<div class="header">
-    <div id="navigation-container">
-        <a href="/"><img class="logo" src="/pictures/logo.svg" /></a>
-        <ul class="hr">
-            <li><a href="/">Home</a></li>
-            <li sec:authorize="hasRole('ROLE_OPERATOR')"><a href="/claim_request">Claim Request</a></li>
-            <li sec:authorize="hasRole('ROLE_USER')"><a href="/send_request">Send Request</a></li>
-            <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/admin">AdminPanel</a></li>
-            <li><a href="/logout">Logout</a></li>
-        </ul>
-    </div>
-</div>
+<head th:replace="fragments/header :: head"></head>
 <div class="main">
 
     <h1>ADMIN Panel</h1>

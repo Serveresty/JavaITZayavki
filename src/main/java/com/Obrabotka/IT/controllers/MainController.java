@@ -19,14 +19,4 @@ public class MainController {
         return "homePage";
     }
 
-    @GetMapping("/send_request")
-    public String reqSend( Model model) {
-        return "send_request";
-    }
-
-    @GetMapping("/claim_request")
-    public String reqClaim( Model model) {
-        return "claim_request";
-    }
-
 }
