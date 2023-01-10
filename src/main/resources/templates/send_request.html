@@ -3,20 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Requests</title>
+    <link rel="stylesheet" href="/css/admin.css">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <head th:replace="fragments/header :: head"></head>
 
 <div class="main">
-
-    <form action="/create_ticket" method="post">
-        <select>
-            <option></option>
-        </select>
-
-    </form>
-
+    <div class="tick">
+        <form action="/create_ticket" method="post">
+            <select>
+                <option th:each="theme : ${themes}" th:text="${theme.title}" th:value="${theme.title}"></option>
+            </select>
+            <textarea class="inpt-req" name="comment"></textarea>
+            <br>
+            <button type="submit" class="btn btn-danger del">Create Ticket</button>
+        </form>
+    </div>
 </div>
 </body>
 </html>

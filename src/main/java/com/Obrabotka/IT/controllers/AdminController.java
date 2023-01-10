@@ -1,8 +1,12 @@
 package com.Obrabotka.IT.controllers;
 
 import com.Obrabotka.IT.models.Role;
+import com.Obrabotka.IT.models.Theme;
+import com.Obrabotka.IT.models.Ticket;
 import com.Obrabotka.IT.models.User;
 import com.Obrabotka.IT.repository.RoleRepository;
+import com.Obrabotka.IT.repository.ThemeRepository;
+import com.Obrabotka.IT.service.TicketService;
 import com.Obrabotka.IT.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -22,11 +26,14 @@ public class AdminController {
     private UserService userService;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private TicketService ticketService;
 
     @GetMapping("/admin")
     public String userList(@AuthenticationPrincipal User user,
                            Model model) {
         model.addAttribute("allUsers", userService.allUsers());
+        model.addAttribute("themes", ticketService.allThemes());
         model.addAttribute("user",user);
         return "admin";
     }
@@ -78,5 +85,24 @@ public class AdminController {
         model.addAttribute("allUsers", userService.usergtList(userId));
         model.addAttribute("user",user);
         return "admin";
+    }
+
+    @PostMapping("/delete_theme")
+    public String deleteTheme(@AuthenticationPrincipal User user,
+                              @RequestParam(required = true, defaultValue = "" ) Long themeId,
+                              @RequestParam(required = true, defaultValue = "" ) String action,
+                              Model model) {
+        if (action.equals("delete")){
+            ticketService.deleteTheme(themeId);
+        }
+        return "redirect:/admin";
+    }
+
+    @PostMapping("/add_theme")
+    public String addTheme(@AuthenticationPrincipal User user,
+                              @RequestParam(required = true, defaultValue = "" ) String text,
+                              Model model) {
+            ticketService.saveTheme(text);
+        return "redirect:/admin";
     }
 }

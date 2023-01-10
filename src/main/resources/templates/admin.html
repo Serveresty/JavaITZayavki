@@ -10,6 +10,38 @@
 <div class="main">
 
     <h1>ADMIN Panel</h1>
+    <button class="del" onclick="openThemes()">Show themes</button>
+    <div id="the" class="allThemes">
+        <table class="alert alert-info mt-2 users">
+            <thead>
+            <th>Theme</th>
+            <th>Delete Theme</th>
+            </thead>
+            <div th:each="theme : ${themes}">
+                <tr>
+                    <td th:text="${theme.title}"></td>
+                    <td>
+                        <form action="/delete_theme" method="post">
+                            <input type="hidden" name="themeId" th:value="${theme.id}"/>
+                            <input type="hidden" name="action" th:value="delete"/>
+                            <button type="submit" class="btn btn-danger del">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            </div>
+        </table>
+        <form action="/add_theme" method="post">
+            <br>
+            <label>Create new theme</label>
+            <br>
+            <input class="new-theme" type="text" name="text" placeholder="Enter new theme"/>
+            <input type="hidden" name="action" th:value="create"/>
+            <button type="submit" class="btn btn-danger del">Add theme</button>
+        </form>
+        <button class="del-close" type="button" onclick="closeThemes()">Close themes</button>
+        <script src="/js/admin.js"></script>
+    </div>
+
 
     <button class="del" onclick="openForm()">Add new user</button>
     <div id="blablabla" class="adminregister">
@@ -38,7 +70,7 @@
             <br>
             <input type="password" name="passwordConfirm" placeholder="Confirm Password">
             <button type="submit" class="btn btn-success del">Sign Up</button>
-            <button class="del" type="button" onclick="closeForm()">Close Adding</button>
+            <button class="del-close" type="button" onclick="closeForm()">Close Adding</button>
         </form>
         <script src="/js/admin.js"></script>
     </div>

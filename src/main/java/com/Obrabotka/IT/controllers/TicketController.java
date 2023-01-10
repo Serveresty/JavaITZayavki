@@ -25,6 +25,8 @@ public class TicketController {
 
     @GetMapping("/send_request")
     public String reqSend( Model model) {
+        model.addAttribute("themes", ticketService.allThemes());
+
         return "send_request";
     }
 
