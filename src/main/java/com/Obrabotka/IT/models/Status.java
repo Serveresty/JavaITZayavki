@@ -28,8 +28,12 @@ public class Status implements Comparable<Status>{
 
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getDescription() {

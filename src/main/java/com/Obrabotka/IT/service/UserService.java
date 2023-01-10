@@ -47,7 +47,6 @@ public class UserService implements UserDetailsService {
     public List<User> allUsers() {
         return userRepository.findAll();
     }
-
     public User get(Long id) {
         return userRepository.findById(id).get();
     }

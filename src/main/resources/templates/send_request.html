@@ -11,11 +11,14 @@
 
 <div class="main">
     <div class="tick">
-        <form action="/create_ticket" method="post">
-            <select>
+        <form action="/create_ticket" method="post" th:object="${ticket}">
+            <select name="title" th:field="*{title}">
                 <option th:each="theme : ${themes}" th:text="${theme.title}" th:value="${theme.title}"></option>
             </select>
-            <textarea class="inpt-req" name="comment"></textarea>
+            <span th:errors="*{title}" class="error"></span><br/>
+
+            <textarea class="inpt-req" name="description" th:field="*{description}"></textarea>
+            <span th:errors="*{description}" class="error"></span>
             <br>
             <button type="submit" class="btn btn-danger del">Create Ticket</button>
         </form>

@@ -56,7 +56,7 @@ public class TicketService {
     }
 
     public List<Ticket> usergtTicketList(User user) {
-        return em.createQuery("SELECT u FROM Ticket u WHERE u.createdBy LIKE :paramId", Ticket.class)
-                .setParameter("paramId", user).getResultList();
+        return em.createQuery("select ticket from Ticket ticket where ticket.createdBy=:param", Ticket.class)
+                .setParameter("param", user).getResultList();
     }
 }
