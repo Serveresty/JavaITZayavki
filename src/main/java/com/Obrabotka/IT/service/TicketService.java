@@ -8,10 +8,12 @@ import com.Obrabotka.IT.models.User;
 import com.Obrabotka.IT.repository.RoleRepository;
 import com.Obrabotka.IT.repository.ThemeRepository;
 import com.Obrabotka.IT.repository.UserRepository;
+import org.hibernate.QueryException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.Collections;
 import java.util.List;
@@ -58,5 +60,21 @@ public class TicketService {
     public List<Ticket> usergtTicketList(User user) {
         return em.createQuery("select ticket from Ticket ticket where ticket.createdBy=:param", Ticket.class)
                 .setParameter("param", user).getResultList();
+    }
+
+    public boolean isUsersTicket(User user, Long ticketId) {
+        try {
+            em.createQuery("select ticket from Ticket ticket where ticket.createdBy=:param1 and ticket.id=:param2", Ticket.class)
+                    .setParameter("param1", user).setParameter("param2", ticketId).getSingleResult();
+            return true;
+        } catch (NoResultException e) {
+            System.out.println(e.getMessage());
+        }
+            return false;
+    }
+
+    public Ticket getTicketById(Long ticketId) {
+        return em.createQuery("select ticket from Ticket ticket where ticket.id=:param", Ticket.class)
+                .setParameter("param", ticketId).getSingleResult();
     }
 }

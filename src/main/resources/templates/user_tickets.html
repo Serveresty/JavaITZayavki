@@ -9,24 +9,40 @@
 </head>
 <body>
 <head th:replace="fragments/header :: head"></head>
-
 <div class="main">
-    <table class="alert alert-info mt-2 users">
-      <thead>
-      <th>ID</th>
-      <th>Stage</th>
-      <th>Title</th>
-      <th>Description</th>
-      </thead>
-      <div th:each ="el : ${allTickets}">
-        <tr>
-          <td th:text="${el.id}"></td>
-          <td th:text="${el.stage}"></td>
-          <td th:text="${el.title}"></td>
-          <td th:text="${el.description}"></td>
-        </tr>
-      </div>
-    </table>
+  <h1>My tickets</h1>
+  <div class="list">
+    <ul class="ticketList">
+        <li th:each ="el : ${allTickets}">
+
+
+          <form action="/current_ticket" method="post">
+          <input type="hidden" name="ticketId" th:value="${el.id}"/>
+
+          <button type="submit" id="ticketButtons">
+          <table class="alert alert-info mt-2 ticketTable">
+            <thead>
+            <th>ID</th>
+            <th>Date Opened</th>
+            <th>Last Update</th>
+            <th>Stage</th>
+            <th>Title</th>
+            </thead>
+            <div>
+              <tr>
+                <td th:text="${el.id}"></td>
+                <td th:text="${el.dateOpened}"></td>
+                <td th:text="${el.lastUpdated}"></td>
+                <td th:text="${el.stage}"></td>
+                <td th:text="${el.title}"></td>
+              </tr>
+            </div>
+          </table>
+        </button>
+          </form>
+        </li>
+    </ul>
+  </div>
   </div>
 
 </body>

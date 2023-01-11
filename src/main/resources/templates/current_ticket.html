@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <title>Requests</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<head th:replace="fragments/header :: head"></head>
+
+<div class="main">
+<div class="curr-ticket" th:each ="el : ${ticket}">
+  <h1>Ticket #<span th:text="${el.id}"></span></h1>
+  <br>
+  <label th:text="${el.title}"></label>
+  <br>
+  <label th:text="${el.dateOpened}"></label>
+  <br>
+  <label th:text="${el.lastUpdated}"></label>
+  <br>
+  <label th:text="${el.stage}"></label>
+  <br>
+  <label th:text="${el.description}"></label>
+
+</div>
+</div>
+</body>

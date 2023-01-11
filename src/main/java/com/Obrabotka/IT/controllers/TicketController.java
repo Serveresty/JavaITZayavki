@@ -1,9 +1,6 @@
 package com.Obrabotka.IT.controllers;
 
-import com.Obrabotka.IT.models.Stage;
-import com.Obrabotka.IT.models.Status;
-import com.Obrabotka.IT.models.Ticket;
-import com.Obrabotka.IT.models.User;
+import com.Obrabotka.IT.models.*;
 import com.Obrabotka.IT.repository.RoleRepository;
 import com.Obrabotka.IT.repository.TicketRepository;
 import com.Obrabotka.IT.service.TicketService;
@@ -69,5 +66,31 @@ public class TicketController {
         model.addAttribute("allTickets", ticketService.usergtTicketList(customUser));
         model.addAttribute("user",user);
         return "user_tickets";
+    }
+
+    @PostMapping("/current_ticket")
+    public String getTicketByIdd(@AuthenticationPrincipal User user,
+                              @RequestParam(required = true, defaultValue = "" ) Long ticketId,
+                              Model model) {
+
+
+
+        return "redirect:/current_ticket/" + ticketId;
+    }
+
+    @GetMapping("/current_ticket/{id}")
+    public String ticketByIdd (@PathVariable("id") Long id, @AuthenticationPrincipal User user, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User customUser = (User)authentication.getPrincipal();
+
+        if (customUser.getRoles().size() < 2) {
+            if (!ticketService.isUsersTicket(customUser, id)) {
+                return "user_tickets";
+            }
+        }
+
+        model.addAttribute("ticket", ticketService.getTicketById(id));
+        model.addAttribute("user",user);
+        return "current_ticket";
     }
 }
