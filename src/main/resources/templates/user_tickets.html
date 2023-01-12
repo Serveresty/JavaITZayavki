@@ -11,7 +11,8 @@
 <head th:replace="fragments/header :: head"></head>
 <div class="main">
   <h1>My tickets</h1>
-  <div class="list">
+  <p th:if="${noTickets}" style="text-align: center; color: #3a014f;">No tickets</p>
+  <div class="list" th:if="${not noTickets}">
     <ul class="ticketList">
         <li th:each ="el : ${allTickets}">
 
@@ -33,7 +34,7 @@
                 <td th:text="${el.id}"></td>
                 <td th:text="${el.dateOpened}"></td>
                 <td th:text="${el.lastUpdated}"></td>
-                <td th:text="${el.stage}"></td>
+                <td th:text="${el.stage}" style="color: red;"></td>
                 <td th:text="${el.title}"></td>
               </tr>
             </div>

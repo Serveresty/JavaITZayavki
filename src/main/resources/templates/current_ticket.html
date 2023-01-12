@@ -10,17 +10,26 @@
 
 <div class="main">
 <div class="curr-ticket" th:each ="el : ${ticket}">
-  <h1>Ticket #<span th:text="${el.id}"></span></h1>
+  <h1 style="text-align: center; text-align: center; color: white; -webkit-text-stroke: 2px pink;">Ticket #<span th:text="${el.id}"></span></h1>
   <br>
-  <label th:text="${el.title}"></label>
-  <br>
-  <label th:text="${el.dateOpened}"></label>
-  <br>
-  <label th:text="${el.lastUpdated}"></label>
-  <br>
-  <label th:text="${el.stage}"></label>
-  <br>
-  <label th:text="${el.description}"></label>
+
+  <table class="currTicketById">
+    <tr>
+      <th colspan="3" th:text="${el.title}"></th>
+    </tr>
+    <tr>
+      <td>Ticket Opened at <br> <span th:text="${el.dateOpened}"></span></td>
+      <td style="border-left: 1px solid blue; border-right: 1px solid blue;">Status <span th:text="${el.stage}" style="color: red;"></span></td>
+      <td>Last ticket Update <br> <span th:text="${el.lastUpdated}"></span></td>
+    </tr>
+    <tr>
+      <td colspan="3" th:text="${el.description}" style=""></td>
+    </tr>
+  </table>
+
+  <div class="operators-buttons" sec:authorize="hasRole('ROLE_OPERATOR')">
+
+  </div>
 
 </div>
 </div>

@@ -62,6 +62,11 @@ public class TicketService {
                 .setParameter("param", user).getResultList();
     }
 
+    public List<Ticket> getAllTickets() {
+        return em.createQuery("select ticket from Ticket ticket", Ticket.class)
+                .getResultList();
+    }
+
     public boolean isUsersTicket(User user, Long ticketId) {
         try {
             em.createQuery("select ticket from Ticket ticket where ticket.createdBy=:param1 and ticket.id=:param2", Ticket.class)

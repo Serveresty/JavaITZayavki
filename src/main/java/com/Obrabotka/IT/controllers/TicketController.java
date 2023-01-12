@@ -42,13 +42,29 @@ public class TicketController {
     }
 
     @GetMapping("/claim_request")
-    public String reqClaim(Model model) {
+    public String reqClaim(@AuthenticationPrincipal User user, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User customUser = (User)authentication.getPrincipal();
+
+        if (ticketService.getAllTickets().size() < 1) {
+            model.addAttribute("noTickets", true);
+            model.addAttribute("user",user);
+            return "user_tickets";
+        }
+
+        model.addAttribute("noTickets", false);
+        model.addAttribute("allTickets", ticketService.getAllTickets());
+        model.addAttribute("user",user);
+
         return "claim_request";
     }
 
     @PostMapping("/create_ticket")
     public String createTicket (Model model, @Valid Ticket newTicket, Errors errors) {
         if(errors.hasErrors()){
+            model.addAttribute("themes", ticketService.allThemes());
+            Ticket newTickett = new Ticket();
+            model.addAttribute(newTickett);
             return "send_request";
         }
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -63,6 +79,13 @@ public class TicketController {
     public String userTickets (@AuthenticationPrincipal User user, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User customUser = (User)authentication.getPrincipal();
+
+        if (ticketService.usergtTicketList(customUser).size() < 1) {
+            model.addAttribute("noTickets", true);
+            model.addAttribute("user",user);
+            return "user_tickets";
+        }
+        model.addAttribute("noTickets", false);
         model.addAttribute("allTickets", ticketService.usergtTicketList(customUser));
         model.addAttribute("user",user);
         return "user_tickets";

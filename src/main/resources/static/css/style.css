@@ -104,7 +104,7 @@ select {
 
 .ticketList {
     height: auto;
-    min-height: 200px;
+    min-height: 100px;
     max-height: 600px;
     width: auto;
     overflow: hidden;
@@ -140,6 +140,25 @@ select {
 
 .ticketTable TD, TH {
     min-width: 100px;
+    height: auto;
+    padding: 5px; /* Поля вокруг текста */
+    border: none; /* Рамка вокруг ячеек */
+}
+
+.currTicketById {
+    border: none;
+    margin: auto;
+    color: #3a014f;
+    padding: 3px;
+    overflow-x:hidden;
+    white-space: normal;
+    word-break: break-all;
+}
+
+.currTicketById  TD, TH {
+    min-width: 100px;
+    max-width: 500px;
+    text-align: center;
     padding: 5px; /* Поля вокруг текста */
     border: none; /* Рамка вокруг ячеек */
 }

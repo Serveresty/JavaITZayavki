@@ -10,7 +10,41 @@
 
 <div class="main">
 
-  <h1>REQUESTS PAGE</h1>
+  <h1 style="text-align: center; text-align: center; color: white; -webkit-text-stroke: 2px pink;">Select tickets to support</h1>
+
+    <p th:if="${noTickets}" style="text-align: center; color: #3a014f;">No tickets</p>
+    <div class="list" th:if="${not noTickets}">
+        <ul class="ticketList">
+            <li th:each ="el : ${allTickets}">
+
+
+                <form action="/current_ticket" method="post">
+                    <input type="hidden" name="ticketId" th:value="${el.id}"/>
+
+                    <button type="submit" id="ticketButtons">
+                        <table class="alert alert-info mt-2 ticketTable">
+                            <thead>
+                            <th>ID</th>
+                            <th>Date Opened</th>
+                            <th>Last Update</th>
+                            <th>Stage</th>
+                            <th>Title</th>
+                            </thead>
+                            <div>
+                                <tr>
+                                    <td th:text="${el.id}"></td>
+                                    <td th:text="${el.dateOpened}"></td>
+                                    <td th:text="${el.lastUpdated}"></td>
+                                    <td th:text="${el.stage}" style="color: red;"></td>
+                                    <td th:text="${el.title}"></td>
+                                </tr>
+                            </div>
+                        </table>
+                    </button>
+                </form>
+            </li>
+        </ul>
+    </div>
 
 </div>
 </body>
