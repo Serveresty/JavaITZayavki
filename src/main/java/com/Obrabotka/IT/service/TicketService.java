@@ -63,7 +63,7 @@ public class TicketService {
     }
 
     public List<Ticket> getAllTickets() {
-        return em.createQuery("select ticket from Ticket ticket", Ticket.class)
+        return em.createQuery("select ticket from Ticket ticket where ticket.assignedTo=null", Ticket.class)
                 .getResultList();
     }
 
@@ -81,5 +81,10 @@ public class TicketService {
     public Ticket getTicketById(Long ticketId) {
         return em.createQuery("select ticket from Ticket ticket where ticket.id=:param", Ticket.class)
                 .setParameter("param", ticketId).getSingleResult();
+    }
+
+    public List<Ticket> opergtTicketList(User user) {
+        return em.createQuery("select ticket from Ticket ticket where ticket.assignedTo=:param", Ticket.class)
+                .setParameter("param", user).getResultList();
     }
 }

@@ -80,13 +80,27 @@ public class TicketController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User customUser = (User)authentication.getPrincipal();
 
+        model.addAttribute("noTickets", false);
+        model.addAttribute("notTickets", false);
+
+        if (customUser.getRoles().size() < 2) {
+            model.addAttribute("notOperator", true);
+        }else{
+            model.addAttribute("notOperator", false);
+        }
+
         if (ticketService.usergtTicketList(customUser).size() < 1) {
             model.addAttribute("noTickets", true);
-            model.addAttribute("user",user);
-            return "user_tickets";
         }
-        model.addAttribute("noTickets", false);
+
+        if (ticketService.opergtTicketList(customUser).size() < 1){
+            model.addAttribute("notTickets", true);
+        }else{
+            model.addAttribute("notTickets", false);
+        }
+
         model.addAttribute("allTickets", ticketService.usergtTicketList(customUser));
+        model.addAttribute("allOperatorTickets", ticketService.opergtTicketList(customUser));
         model.addAttribute("user",user);
         return "user_tickets";
     }
@@ -115,5 +129,16 @@ public class TicketController {
         model.addAttribute("ticket", ticketService.getTicketById(id));
         model.addAttribute("user",user);
         return "current_ticket";
+    }
+
+    @PostMapping("/take_ticket")
+    public String takeTicketByOperator (@RequestParam(required = true, defaultValue = "" ) Long ticketId, @AuthenticationPrincipal User user, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User customUser = (User)authentication.getPrincipal();
+
+        Ticket thisTicket = ticketService.getTicketById(ticketId);
+        thisTicket.setAssignedTo(customUser);
+        ticketRepository.save(thisTicket);
+        return "redirect:/current_ticket/" + ticketId;
     }
 }

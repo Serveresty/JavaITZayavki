@@ -1,0 +1,11 @@
+.my-requests {
+    display: inline-block;
+    width: 49%;
+    text-align: center;
+}
+
+.taken-by-me {
+    display: inline-block;
+    width: 49%;
+    text-align: center;
+}

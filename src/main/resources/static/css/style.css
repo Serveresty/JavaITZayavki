@@ -162,3 +162,8 @@ select {
     padding: 5px; /* Поля вокруг текста */
     border: none; /* Рамка вокруг ячеек */
 }
+
+#ticketButtonsv-2 {
+    width: 600px;
+    margin: 5px;
+}

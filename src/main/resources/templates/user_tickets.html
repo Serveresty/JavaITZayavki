@@ -6,44 +6,93 @@
   <title>Home Page</title>
   <link rel="stylesheet" href="/css/admin.css">
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/user_tick.css">
 </head>
 <body>
 <head th:replace="fragments/header :: head"></head>
 <div class="main">
   <h1>My tickets</h1>
-  <p th:if="${noTickets}" style="text-align: center; color: #3a014f;">No tickets</p>
-  <div class="list" th:if="${not noTickets}">
-    <ul class="ticketList">
-        <li th:each ="el : ${allTickets}">
+  <style th:if="${notOperator}">
+      .my-requests {
+          display: flex;
+          justify-content: center;
+          width: auto;
+      }
+  </style>
+  <div class="my-requests">
+            <h3 th:if="${not notOperator}">My requests</h3>
+            <p th:if="${noTickets}" style="text-align: center; color: #3a014f;">No tickets</p>
+            <div class="list" th:if="${not noTickets}">
+              <ul class="ticketList">
+                  <li th:each ="el : ${allTickets}">
 
 
-          <form action="/current_ticket" method="post">
-          <input type="hidden" name="ticketId" th:value="${el.id}"/>
+                    <form action="/current_ticket" method="post">
+                    <input type="hidden" name="ticketId" th:value="${el.id}"/>
 
-          <button type="submit" id="ticketButtons">
-          <table class="alert alert-info mt-2 ticketTable">
-            <thead>
-            <th>ID</th>
-            <th>Date Opened</th>
-            <th>Last Update</th>
-            <th>Stage</th>
-            <th>Title</th>
-            </thead>
-            <div>
-              <tr>
-                <td th:text="${el.id}"></td>
-                <td th:text="${el.dateOpened}"></td>
-                <td th:text="${el.lastUpdated}"></td>
-                <td th:text="${el.stage}" style="color: red;"></td>
-                <td th:text="${el.title}"></td>
-              </tr>
+                    <button type="submit" id="ticketButtons">
+                    <table class="alert alert-info mt-2 ticketTable">
+                      <thead>
+                      <th>ID</th>
+                      <th>Date Opened</th>
+                      <th>Last Update</th>
+                      <th>Stage</th>
+                      <th>Title</th>
+                      </thead>
+                      <div>
+                        <tr>
+                          <td th:text="${el.id}"></td>
+                          <td th:text="${el.dateOpened}"></td>
+                          <td th:text="${el.lastUpdated}"></td>
+                          <td th:text="${el.stage}" style="color: red;"></td>
+                          <td th:text="${el.title}"></td>
+                        </tr>
+                      </div>
+                    </table>
+                  </button>
+                    </form>
+                  </li>
+              </ul>
             </div>
-          </table>
-        </button>
-          </form>
-        </li>
-    </ul>
   </div>
+
+
+  <div class="taken-by-me" th:if="${not notOperator}">
+          <h3>Tickets taken by me</h3>
+          <p th:if="${notTickets}" style="text-align: center; color: #3a014f;">No tickets</p>
+              <div class="list" th:if="${not notTickets}">
+                <ul class="ticketList">
+                  <li th:each ="ell : ${allOperatorTickets}">
+
+
+                    <form action="/current_ticket" method="post">
+                      <input type="hidden" name="ticketId" th:value="${ell.id}"/>
+
+                      <button type="submit" id="ticketButtonsv-2">
+                        <table class="alert alert-info mt-2 ticketTable">
+                          <thead>
+                          <th>ID</th>
+                          <th>Date Opened</th>
+                          <th>Last Update</th>
+                          <th>Stage</th>
+                          <th>Title</th>
+                          </thead>
+                          <div>
+                            <tr>
+                              <td th:text="${ell.id}"></td>
+                              <td th:text="${ell.dateOpened}"></td>
+                              <td th:text="${ell.lastUpdated}"></td>
+                              <td th:text="${ell.stage}" style="color: red;"></td>
+                              <td th:text="${ell.title}"></td>
+                            </tr>
+                          </div>
+                        </table>
+                      </button>
+                    </form>
+                  </li>
+                </ul>
+              </div>
+</div>
   </div>
 
 </body>
