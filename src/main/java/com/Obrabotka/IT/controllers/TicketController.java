@@ -2,6 +2,7 @@ package com.Obrabotka.IT.controllers;
 
 import com.Obrabotka.IT.models.*;
 import com.Obrabotka.IT.repository.RoleRepository;
+import com.Obrabotka.IT.repository.StatusRepository;
 import com.Obrabotka.IT.repository.TicketRepository;
 import com.Obrabotka.IT.service.TicketService;
 import com.Obrabotka.IT.service.UserService;
@@ -29,6 +30,8 @@ public class TicketController {
     private RoleRepository roleRepository;
     @Autowired
     private TicketRepository ticketRepository;
+    @Autowired
+    private StatusRepository statusRepository;
 
     @Autowired
     private TicketService ticketService;
@@ -49,7 +52,7 @@ public class TicketController {
         if (ticketService.getAllTickets().size() < 1) {
             model.addAttribute("noTickets", true);
             model.addAttribute("user",user);
-            return "user_tickets";
+            return "claim_request";
         }
 
         model.addAttribute("noTickets", false);
@@ -63,8 +66,6 @@ public class TicketController {
     public String createTicket (Model model, @Valid Ticket newTicket, Errors errors) {
         if(errors.hasErrors()){
             model.addAttribute("themes", ticketService.allThemes());
-            Ticket newTickett = new Ticket();
-            model.addAttribute(newTickett);
             return "send_request";
         }
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -120,15 +121,58 @@ public class TicketController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User customUser = (User)authentication.getPrincipal();
 
+        Ticket activeTicket = ticketService.getTicketById(id);
+        Status newStatus = new Status();
+
+        List<Status> updates = activeTicket.getUpdates();
+
         if (customUser.getRoles().size() < 2) {
             if (!ticketService.isUsersTicket(customUser, id)) {
                 return "user_tickets";
             }
         }
 
+        model.addAttribute("statuses", activeTicket.getUpdates());
+        model.addAttribute("status", newStatus);
         model.addAttribute("ticket", ticketService.getTicketById(id));
+        model.addAttribute("currStatus", activeTicket.getStage().toString());
         model.addAttribute("user",user);
         return "current_ticket";
+    }
+
+    @PostMapping("/addComment")
+    public String addComment (@AuthenticationPrincipal User user,
+                              @RequestParam(required = true, defaultValue = "" ) Long ticketId,
+                              @RequestParam(required = true, defaultValue = "") String newComment,
+                              Model model, @Valid Status newStatus) {
+        Ticket activeTicket = ticketService.getTicketById(ticketId);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User customUser = (User)authentication.getPrincipal();
+
+        newStatus.setAuthor(customUser.getUsername());
+        activeTicket.addUpdate(newStatus);
+        activeTicket.setLastUpdated(new Date());
+        statusRepository.save(newStatus);
+
+        return "redirect:/current_ticket/" + ticketId;
+    }
+
+    @PostMapping("/closeTicket")
+    public String closeTicket (Model model, @RequestParam(required = true, defaultValue = "" ) Long ticketId, @Valid Ticket ticket, Errors errors) {
+        Ticket activeTicket = ticketService.getTicketById(ticketId);
+        activeTicket.setStage(Stage.CLOSED);
+        activeTicket.setDateClosed(new Date());
+        ticketRepository.save(activeTicket);
+        return "redirect:/user_tickets";
+    }
+    @PostMapping("/waitingUserAnswer")
+    public String waitingUserAnswer (Model model, @RequestParam(required = true, defaultValue = "" ) Long ticketId, @Valid Ticket ticket, Errors errors) {
+        Ticket activeTicket = ticketService.getTicketById(ticketId);
+        activeTicket.setStage(Stage.WAITING_INPUT);
+        activeTicket.setDateClosed(new Date());
+        ticketRepository.save(activeTicket);
+        return "redirect:/current_ticket/" + ticketId;
     }
 
     @PostMapping("/take_ticket")
@@ -138,6 +182,8 @@ public class TicketController {
 
         Ticket thisTicket = ticketService.getTicketById(ticketId);
         thisTicket.setAssignedTo(customUser);
+        thisTicket.setStage(Stage.WORKING);
+        thisTicket.setDateClosed(new Date());
         ticketRepository.save(thisTicket);
         return "redirect:/current_ticket/" + ticketId;
     }

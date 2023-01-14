@@ -23,7 +23,7 @@ public class Ticket {
     private String title;
 
     @NotNull
-    @Size(min=1, max=500, message = "Description too long (max 500 characters)")
+    @Size(min=1, max=500, message = "Wrong description size (min 1, max 500 characters)")
     private String description;
 
     @CreatedDate

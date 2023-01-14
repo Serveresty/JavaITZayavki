@@ -4,6 +4,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
@@ -16,6 +17,7 @@ public class Status implements Comparable<Status>{
     private Long id;
 
     @NotNull
+    @Size(min=1, max=500, message = "Wrong description size (min 1, max 500 characters)")
     private String description;
 
     @CreationTimestamp

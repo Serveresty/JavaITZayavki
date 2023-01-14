@@ -53,8 +53,9 @@ public class UserService implements UserDetailsService {
 
     public boolean saveUser(User user) {
         User userFromDB = userRepository.findByUsername(user.getUsername());
+        List<User> userFromDB2 = findByEmail(user.getEmail());
 
-        if (userFromDB != null) {
+        if (userFromDB != null || userFromDB2 != null) {
             return false;
         }
 
@@ -62,6 +63,11 @@ public class UserService implements UserDetailsService {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return true;
+    }
+
+    public List<User> findByEmail(String email) {
+        return em.createQuery("SELECT u FROM User u WHERE u.email > :paramId", User.class)
+                .setParameter("paramId", email).getResultList();
     }
 
     public boolean saveWith(User user) {

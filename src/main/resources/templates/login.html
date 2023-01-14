@@ -29,6 +29,8 @@
                     <i class="fa fa-eye" aria-hidden="true"  type="button" id="eye"><img src="/pictures/eye.svg" width="25" height="25"></i>
                 </span>
         <br>
+          <span th:if="${errorMessage}" th:text="${errorMessage}"></span>
+        <br>
         <button class="log-in" type="submit">Log In</button>
       </div>
 

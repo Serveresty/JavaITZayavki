@@ -99,25 +99,28 @@
                 <div th:each="role : ${el.roles}"><span th:text="${role.name}"></span></div>
             </td>
             <td>
-                <form action="/admin" method="post">
+                <form action="/admin" method="post" th:if="${el.id} != ${#request.userPrincipal.principal.id}">
                     <input type="hidden" name="userId" th:value="${el.id}"/>
                     <input type="hidden" name="action" th:value="delete"/>
                     <button type="submit" class="btn btn-danger del">Delete</button>
                 </form>
+                <span th:if="${el.id} == ${#request.userPrincipal.principal.id}">No actions</span>
             </td>
             <td>
-                <form action="/admin" method="post">
+                <form action="/admin" method="post" th:if="${el.id} != ${#request.userPrincipal.principal.id}">
                     <input type="hidden" name="userId" th:value="${el.id}"/>
                     <input type="hidden" name="action" th:value="give_operator"/>
                     <button type="submit" class="btn btn-danger del">Give Operator</button>
                 </form>
+                <span th:if="${el.id} == ${#request.userPrincipal.principal.id}">No actions</span>
             </td>
             <td>
-                <form action="/admin" method="post">
+                <form action="/admin" method="post" th:if="${el.id} != ${#request.userPrincipal.principal.id}">
                     <input type="hidden" name="userId" th:value="${el.id}"/>
                     <input type="hidden" name="action" th:value="delete_operator"/>
                     <button type="submit" class="btn btn-danger del">Del Operator</button>
                 </form>
+                <span th:if="${el.id} == ${#request.userPrincipal.principal.id}">No actions</span>
             </td>
         </tr>
     </div>

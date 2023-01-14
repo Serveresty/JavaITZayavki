@@ -46,6 +46,9 @@
                 </span>
               <input type="password" class="form-input" name="passwordConfirm" placeholder="Confirm your password">
                 <br>
+                <span th:if="${passwordError}" class="error">Passwords not equals</span>
+                <span th:if="${usernameError}" class="error">This username or email already registered</span>
+                <br>
               <button class="log-in" type="submit">Sign Up</button>
             </div>
 
@@ -58,37 +61,5 @@
       </form>
 </div>
 <script src="/js/login.js"></script>
-<!--
-      <form th:action="@{/registration}" method="POST" modelAttribute="userForm">
-        <h1 class="">Регистрация</h1>
-        <div class="">
-          <input type="text" name="first_name"  class="form-control" placeholder="First Name"
-                 autofocus="true">
-        </div>
-        <div class="">
-          <input type="text" name="last_name"  class="form-control" placeholder="Last Name"
-                 autofocus="true">
-        </div>
-        <div class="">
-          <input type="text" name="email"  class="form-control" placeholder="Email"
-                 autofocus="true">
-        </div>
-        <div class="">
-          <input type="text" name="username"  class="form-control" placeholder="Username"
-                 autofocus="true">
-        </div>
-        <div class="">
-          <input type="password" name="password" class="form-control" placeholder="Password">
-        </div>
-        <div class="">
-          <input type="password" class="form-control" name="passwordConfirm"
-                 placeholder="Confirm your password">
-        </div>
-        <button class="" type="submit">Sign up</button>
-        <div class="">
-          <a class="" href="/login">Have an account? Sign In</a>
-        </div>
-      </form>
-      -->
 </body>
 </html>

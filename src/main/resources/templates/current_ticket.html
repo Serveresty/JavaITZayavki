@@ -29,11 +29,62 @@
     </tr>
   </table>
 
-  <div class="operators-buttons" sec:authorize="hasRole('ROLE_OPERATOR')" th:if="${el.assignedTo} == null">
+  <h4 class="offset-md-1">Updates</h4>
+
+  <table th:unless="${!statuses.isEmpty()}" class="table col-md-10 offset-1">
+    <tr>
+      <td>No Updates</td>
+    </tr>
+  </table>
+
+  <div class="container" th:if="${!statuses.isEmpty()}">
+    <div th:each="status : ${statuses}">
+      <div class="row">
+        <div class="col-md-8 offset-sm-1 offset-md-2 border border-primary rounded">
+          <p th:text="${status.getDescription()}"></p>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-md-8 col-sm-10 offset-md-2 text-right">
+          <p class="font-weight-light " th:text="'By ' + ${status.getAuthor()} + ' on ' + ${#dates.format(status.updateDate, 'M/dd/yyyy h:mm a')}"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p></p>
+
+  <h4 th:if="${currStatus} == 'CLOSED'"> This ticket is closed</h4>
+
+  <div class="updateTicket"  th:if="${el.assignedTo} != null and ${currStatus} != 'CLOSED'">
+    <form action="/addComment" method="post" th:object="${status}">
+      <input type="hidden" name="ticketId" th:value="${el.id}"/>
+      <textarea class="inpt-req" name="description" th:field="*{description}"></textarea>
+      <span th:errors="*{description}" class="error"></span>
+      <button type="submit" class="btn btn-danger del">Add comment</button>
+    </form>
+  </div>
+
+  <div class="operators-buttons" sec:authorize="hasRole('ROLE_OPERATOR')" th:if="${el.assignedTo} == null and ${currStatus} != 'CLOSED'">
       <form action="/take_ticket" method="post">
         <input type="hidden" name="ticketId" th:value="${el.id}"/>
         <button type="submit" class="btn btn-danger del">Take this</button>
       </form>
+  </div>
+
+  <div class="operators-buttons" th:if="${el.assignedTo} != null and ${currStatus} != 'CLOSED'">
+    <!-- Waiting answer -->
+    <form action="/waitingUserAnswer" method="post">
+      <input type="hidden" name="ticketId" th:value="${el.id}"/>
+      <button type="submit" class="btn btn-danger del">More info</button>
+    </form>
+
+    <!-- Close Ticket-->
+    <form action="/closeTicket" method="post">
+      <input type="hidden" name="ticketId" th:value="${el.id}"/>
+      <button type="submit" class="btn btn-danger del">Close ticket</button>
+    </form>
   </div>
 
 </div>

@@ -6,7 +6,7 @@ public enum Stage {
     ASSIGNED ("Assigned"),
     WORKING ("Working"),
     HOLD ("On hold"),
-    PENDING_INPUT ("Pending input"),
+    WAITING_INPUT ("Pending input"),
     CLOSED ("Closed");
 
     private final String name;
