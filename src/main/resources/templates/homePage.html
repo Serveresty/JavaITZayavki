@@ -5,13 +5,30 @@
     <meta charset="UTF-8">
     <title>Home Page</title>
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/home.css">
 </head>
 <body>
 <head th:replace="fragments/header :: head"></head>
 
 <div class="main">
 
-    <h1>HOME PAGE</h1>
+    <h1>Welcome to Support. How can we help you?</h1>
+
+    <div class="nav-buttons">
+        <div class="send">
+            <a href="/send_request"><button class="navig" type="button">Create ticket</button></a>
+        </div>
+        <div class="my-tick">
+            <a href="/user_tickets"><button class="navig" type="button">My tickets</button></a>
+        </div>
+        <div class="for-opers" sec:authorize="hasRole('ROLE_OPERATOR')">
+            <a href="/claim_request"><button class="navig" type="button">Claim tickets</button></a>
+        </div>
+
+        <div class="for-admins" sec:authorize="hasRole('ROLE_ADMIN')">
+            <a href="/admin"><button class="navig" type="button">Admin panel</button></a>
+        </div>
+    </div>
 
 </div>
 </body>
