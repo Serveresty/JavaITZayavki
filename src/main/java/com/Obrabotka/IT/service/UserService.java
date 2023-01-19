@@ -53,9 +53,8 @@ public class UserService implements UserDetailsService {
 
     public boolean saveUser(User user) {
         User userFromDB = userRepository.findByUsername(user.getUsername());
-        List<User> userFromDB2 = findByEmail(user.getEmail());
 
-        if (userFromDB != null || userFromDB2 != null) {
+        if (userFromDB != null) {
             return false;
         }
 

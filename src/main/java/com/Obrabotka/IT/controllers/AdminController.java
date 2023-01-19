@@ -34,6 +34,7 @@ public class AdminController {
     @GetMapping("/admin")
     public String userList(@AuthenticationPrincipal User user,
                            Model model) {
+        model.addAttribute("userForm", new User());
         model.addAttribute("allUsers", userService.allUsers());
         model.addAttribute("themes", ticketService.allThemes());
         model.addAttribute("user",user);
@@ -48,6 +49,8 @@ public class AdminController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User customUser = (User)authentication.getPrincipal();
         if (action.equals("delete")){
+            User userr = userService.get(userId);
+            ticketService.deleteTickets(userr);
             userService.deleteUser(userId);
         }
         if (action.equals("give_operator")) {
@@ -66,16 +69,16 @@ public class AdminController {
     }
 
     @PostMapping("/admin_registration")
-    public String addUserByAdmin(@ModelAttribute("userForm")@Valid User userForm, BindingResult bindingResult, Model model) {
+    public String addUserByAdmin(@ModelAttribute("userrForm")@Valid User userrForm, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
             return "admin";
         }
-        if (!userForm.getPassword().equals(userForm.getPasswordConfirm())){
+        if (!userrForm.getPassword().equals(userrForm.getPasswordConfirm())){
             model.addAttribute("passwordError", "Пароли не совпадают");
             return "admin";
         }
-        if (!userService.saveUser(userForm)){
+        if (!userService.saveUser(userrForm)){
             model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
             return "admin";
         }

@@ -7,6 +7,7 @@ import com.Obrabotka.IT.models.Ticket;
 import com.Obrabotka.IT.models.User;
 import com.Obrabotka.IT.repository.RoleRepository;
 import com.Obrabotka.IT.repository.ThemeRepository;
+import com.Obrabotka.IT.repository.TicketRepository;
 import com.Obrabotka.IT.repository.UserRepository;
 import org.hibernate.QueryException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,9 @@ public class TicketService {
     @Autowired
     ThemeRepository themeRepository;
 
+    @Autowired
+    TicketRepository ticketRepository;
+
     public List<Theme> allThemes() {
         return themeRepository.findAll();
     }
@@ -40,6 +44,20 @@ public class TicketService {
     public boolean deleteTheme(Long themeId) {
         themeRepository.findById(themeId);
         themeRepository.deleteById(themeId);
+        return true;
+    }
+
+    public boolean deleteTickets(User user) {
+        List<Ticket> tl = usergtTicketList(user);
+        for (Ticket t : tl) {
+            ticketRepository.deleteById(t.getId());
+        }
+
+        List<Ticket> tl2 = em.createQuery("select ticket from Ticket ticket where ticket.assignedTo=:param", Ticket.class)
+                .setParameter("param", user).getResultList();
+        for (Ticket t : tl2) {
+            ticketRepository.deleteById(t.getId());
+        }
         return true;
     }
 
